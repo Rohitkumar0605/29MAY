@@ -50,9 +50,16 @@ public class BankingController {
 			@PathVariable double enteredAmount) {
 		return bankingService.fundTrasnferProcess(fromUserId, toUserId, enteredAmount);
 	}
-	
+
+	public String message() {
+		return "abc";
+	}
+
 	public void helloWorld() {
 		System.out.println("Lakshman Testing");
 	}
 
+	public void helloWorldDemo() {
+		System.out.println("Kabilesh Testing...");
+	}
 }
