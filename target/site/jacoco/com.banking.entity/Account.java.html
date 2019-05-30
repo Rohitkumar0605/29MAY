@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Account.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankingApplication</a> &gt; <a href="index.source.html" class="el_package">com.banking.entity</a> &gt; <span class="el_source">Account.java</span></div><h1>Account.java</h1><pre class="source lang-java linenums">package com.banking.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+public class Account implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+
+	private Long accountId;
+	private String accountType;
+	private String firstName;
+	private String lastName;
+	private String Address;
+	private String status;
+	private String pancard;
+
+	public Account() {
+<span class="fc" id="L29">		super();</span>
+
+<span class="fc" id="L31">	}</span>
+
+	public Long getAccountId() {
+<span class="nc" id="L34">		return accountId;</span>
+	}
+
+	public void setAccountId(Long accountId) {
+<span class="fc" id="L38">		this.accountId = accountId;</span>
+<span class="fc" id="L39">	}</span>
+
+	public String getAccountType() {
+<span class="fc" id="L42">		return accountType;</span>
+	}
+
+	public void setAccountType(String accountType) {
+<span class="fc" id="L46">		this.accountType = accountType;</span>
+<span class="fc" id="L47">	}</span>
+
+	public String getFirstName() {
+<span class="nc" id="L50">		return firstName;</span>
+	}
+
+	public void setFirstName(String firstName) {
+<span class="fc" id="L54">		this.firstName = firstName;</span>
+<span class="fc" id="L55">	}</span>
+
+	public String getLastName() {
+<span class="nc" id="L58">		return lastName;</span>
+	}
+
+	public void setLastName(String lastName) {
+<span class="fc" id="L62">		this.lastName = lastName;</span>
+<span class="fc" id="L63">	}</span>
+
+	public String getAddress() {
+<span class="nc" id="L66">		return Address;</span>
+	}
+
+	public void setAddress(String address) {
+<span class="fc" id="L70">		Address = address;</span>
+<span class="fc" id="L71">	}</span>
+
+	public String getStatus() {
+<span class="nc" id="L74">		return status;</span>
+	}
+
+	public void setStatus(String status) {
+<span class="fc" id="L78">		this.status = status;</span>
+<span class="fc" id="L79">	}</span>
+
+	public String getPancard() {
+<span class="nc" id="L82">		return pancard;</span>
+	}
+
+	public void setPancard(String pancard) {
+<span class="fc" id="L86">		this.pancard = pancard;</span>
+<span class="fc" id="L87">	}</span>
+
+	@Override
+	public String toString() {
+<span class="nc" id="L91">		return &quot;Account [accountId=&quot; + accountId + &quot;, accountType=&quot; + accountType + &quot;, firstName=&quot; + firstName</span>
+				+ &quot;, lastName=&quot; + lastName + &quot;, Address=&quot; + Address + &quot;, status=&quot; + status + &quot;, pancard=&quot; + pancard
+				+ &quot;]&quot;;
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
