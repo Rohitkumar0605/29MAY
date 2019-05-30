@@ -25,6 +25,11 @@ public class FundTransaction implements Serializable {
 	private Date transactionDate;
 	private double amount;
 
+	public FundTransaction() {
+		super();
+
+	}
+
 	public Long getTransactionId() {
 		return transactionId;
 	}
@@ -79,6 +84,13 @@ public class FundTransaction implements Serializable {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	@Override
+	public String toString() {
+		return "FundTransaction [transactionId=" + transactionId + ", userId=" + userId + ", accountId=" + accountId
+				+ ", fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", transactionDate=" + transactionDate
+				+ ", amount=" + amount + "]";
 	}
 
 }

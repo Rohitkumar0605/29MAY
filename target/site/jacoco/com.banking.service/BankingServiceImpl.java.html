@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankingApplication</a> &gt; <a href="index.source.html" class="el_package">com.banking.service</a> &gt; <span class="el_source">BankingServiceImpl.java</span></div><h1>BankingServiceImpl.java</h1><pre class="source lang-java linenums">package com.banking.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.banking.dto.AccountDto;
+import com.banking.dto.Message;
+import com.banking.entity.Account;
+import com.banking.entity.FundTransaction;
+import com.banking.entity.User;
+import com.banking.repository.AccountRepository;
+import com.banking.repository.FundTransactionRepository;
+import com.banking.repository.UserRepository;
+
+@Service
+<span class="fc" id="L22">public class BankingServiceImpl implements BankingService {</span>
+
+	@Autowired
+	private AccountRepository accountRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	FundTransactionRepository fundTransactionRepository;
+
+	@Override
+	@Transactional
+	public User create(AccountDto accountDto) {
+<span class="fc" id="L36">		Account account = new Account();</span>
+<span class="fc" id="L37">		account.setAccountType(accountDto.getAccountTypeDto());</span>
+<span class="fc" id="L38">		account.setAddress(accountDto.getAddressDto());</span>
+<span class="fc" id="L39">		account.setFirstName(accountDto.getFirstNameDto());</span>
+<span class="fc" id="L40">		account.setLastName(accountDto.getLastNameDto());</span>
+<span class="fc" id="L41">		account.setPancard(accountDto.getPancardDto());</span>
+<span class="fc" id="L42">		account.setStatus(&quot;Active&quot;);</span>
+
+<span class="fc" id="L44">		User user = new User();</span>
+<span class="fc" id="L45">		user.setAccountType(account.getAccountType());</span>
+<span class="fc" id="L46">		user.setAmount(50000);</span>
+<span class="fc" id="L47">		user.setPassword(&quot;password&quot;);</span>
+<span class="fc" id="L48">		user.setUserName(accountDto.getFirstNameDto().substring(0, 3) + accountDto.getLastNameDto().substring(0, 3));</span>
+
+<span class="fc" id="L50">		user.setAccount(account);</span>
+
+<span class="fc" id="L52">		accountRepository.save(account);</span>
+<span class="fc" id="L53">		userRepository.save(user);</span>
+<span class="fc" id="L54">		return user;</span>
+	}
+
+	@Override
+	public List&lt;User&gt; getAll() {
+<span class="fc" id="L59">		return userRepository.findAll();</span>
+	}
+
+	@Override
+	public Message validateLogin(String userName, String password) {
+
+<span class="fc" id="L65">		Message msg = new Message();</span>
+		
+<span class="fc" id="L67">		User user = new User();</span>
+<span class="fc" id="L68">		user = userRepository.findByUserNameAndPassword(userName, password);</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">		if (user != null) {</span>
+<span class="fc" id="L70">			msg.setStatus(&quot;Success&quot;);</span>
+<span class="fc" id="L71">			msg.setMessage(&quot;Success&quot;);</span>
+<span class="fc" id="L72">			msg.setUser(user);</span>
+<span class="fc" id="L73">			return msg;</span>
+		} else {
+<span class="nc" id="L75">			msg.setStatus(&quot;Failure&quot;);</span>
+<span class="nc" id="L76">			msg.setMessage(&quot;Invalid Login&quot;);</span>
+<span class="nc" id="L77">			return msg;</span>
+		}
+	}
+
+	@Override
+	public List&lt;FundTransaction&gt; getTransactionDetails(Long userId) {
+<span class="fc" id="L83">		return fundTransactionRepository.findByUserId(userId);</span>
+	}
+
+	@Override
+	public Message fundTrasnferProcess(Long fromUserId, Long toUserId, double enteredAmount) {
+<span class="nc" id="L88">		Message message = new Message();</span>
+<span class="nc" id="L89">		FundTransaction fundTransaction = new FundTransaction();</span>
+		
+
+<span class="nc" id="L92">		User user = userRepository.findById(fromUserId).get();</span>
+<span class="nc" id="L93">		Long fromAccountId = user.getAccount().getAccountId();</span>
+
+<span class="nc" id="L95">		User user1 = userRepository.findById(toUserId).get();</span>
+<span class="nc" id="L96">		Long toAccountId = user.getAccount().getAccountId();</span>
+
+<span class="nc" id="L98">		Double fromAmount = user.getAmount();</span>
+<span class="nc" id="L99">		Double toAmount = user1.getAmount();</span>
+
+<span class="nc" id="L101">		Double famount = fromAmount - enteredAmount;</span>
+<span class="nc" id="L102">		Double tAmount = toAmount + enteredAmount;</span>
+
+<span class="nc" id="L104">		fundTransaction.setAccountId(fromAccountId);</span>
+<span class="nc" id="L105">		fundTransaction.setAmount(enteredAmount);</span>
+<span class="nc" id="L106">		fundTransaction.setFromAccount(user.getUserName());</span>
+<span class="nc" id="L107">		fundTransaction.setToAccount(user1.getUserName());</span>
+<span class="nc" id="L108">		fundTransaction.setTransactionDate(new Date());</span>
+<span class="nc" id="L109">		fundTransaction.setUserId(fromUserId);</span>
+		
+<span class="nc bnc" id="L111" title="All 2 branches missed.">		if (fromAmount &gt; enteredAmount) {</span>
+<span class="nc" id="L112">			user.setAmount(famount);</span>
+<span class="nc" id="L113">			userRepository.save(user);</span>
+			
+<span class="nc" id="L115">			user1.setAmount(tAmount);</span>
+<span class="nc" id="L116">			userRepository.save(user1);</span>
+			
+//			userRepository.updateFundTransferNew(fromUserId, famount);
+//			userRepository.updateFundTransferNew(toUserId, tAmount);
+<span class="nc" id="L120">			fundTransactionRepository.save(fundTransaction);</span>
+<span class="nc" id="L121">			message.setStatus(&quot;success&quot;);</span>
+<span class="nc" id="L122">			message.setMessage(&quot;Transaction Completed&quot;);</span>
+			// return message;
+		} else {
+<span class="nc" id="L125">			message.setStatus(&quot;failure&quot;);</span>
+<span class="nc" id="L126">			message.setMessage(&quot;Insufficient fund.&quot;);</span>
+			// return message;
+		}
+<span class="nc" id="L129">		return message;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

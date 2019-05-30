@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BankingApplication</a> &gt; <a href="index.source.html" class="el_package">com.banking.entity</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.banking.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long userId;
+	private String userName;
+	private String password;
+	private String accountType;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = &quot;AccountID&quot;)
+	private Account account;
+
+	private double amount;
+
+	public User() {
+<span class="fc" id="L31">		super();</span>
+
+<span class="fc" id="L33">	}</span>
+
+	public Long getUserId() {
+<span class="nc" id="L36">		return userId;</span>
+	}
+
+	public void setUserId(Long userId) {
+<span class="fc" id="L40">		this.userId = userId;</span>
+<span class="fc" id="L41">	}</span>
+
+	public String getUserName() {
+<span class="fc" id="L44">		return userName;</span>
+	}
+
+	public void setUserName(String userName) {
+<span class="fc" id="L48">		this.userName = userName;</span>
+<span class="fc" id="L49">	}</span>
+
+	public String getPassword() {
+<span class="nc" id="L52">		return password;</span>
+	}
+
+	public void setPassword(String password) {
+<span class="fc" id="L56">		this.password = password;</span>
+<span class="fc" id="L57">	}</span>
+
+	public String getAccountType() {
+<span class="nc" id="L60">		return accountType;</span>
+	}
+
+	public void setAccountType(String accountType) {
+<span class="fc" id="L64">		this.accountType = accountType;</span>
+<span class="fc" id="L65">	}</span>
+
+	public Account getAccount() {
+<span class="nc" id="L68">		return account;</span>
+	}
+
+	public void setAccount(Account account) {
+<span class="fc" id="L72">		this.account = account;</span>
+<span class="fc" id="L73">	}</span>
+
+	public double getAmount() {
+<span class="nc" id="L76">		return amount;</span>
+	}
+
+	public void setAmount(double amount) {
+<span class="fc" id="L80">		this.amount = amount;</span>
+<span class="fc" id="L81">	}</span>
+
+	@Override
+	public String toString() {
+<span class="nc" id="L85">		return &quot;User [userId=&quot; + userId + &quot;, userName=&quot; + userName + &quot;, password=&quot; + password + &quot;, accountType=&quot;</span>
+				+ accountType + &quot;, account=&quot; + account + &quot;, amount=&quot; + amount + &quot;]&quot;;
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

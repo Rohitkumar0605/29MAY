@@ -3,9 +3,11 @@ package com.banking.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,10 +20,17 @@ public class User implements Serializable {
 	private String userName;
 	private String password;
 	private String accountType;
-	@OneToOne(targetEntity = Account.class)
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "AccountID")
 	private Account account;
 
 	private double amount;
+
+	public User() {
+		super();
+
+	}
 
 	public Long getUserId() {
 		return userId;
@@ -55,6 +64,14 @@ public class User implements Serializable {
 		this.accountType = accountType;
 	}
 
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
 	public double getAmount() {
 		return amount;
 	}
@@ -63,7 +80,10 @@ public class User implements Serializable {
 		this.amount = amount;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", accountType="
+				+ accountType + ", account=" + account + ", amount=" + amount + "]";
 	}
+
 }
