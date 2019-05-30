@@ -62,4 +62,10 @@ public class BankingController {
 	public void helloWorldDemo() {
 		System.out.println("Kabilesh Testing...");
 	}
+	
+	public void helloWorldPractice() {
+		System.out.println("Kabilesh Testing practice...");
+	}
+	
+	
 }
